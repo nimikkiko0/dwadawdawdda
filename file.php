@@ -109,7 +109,7 @@ class MyEventHandler extends EventHandler
 
    
         $filename = yield $this->downloadToDir($update['message'] , __DIR__ . '/tmp/');
-        
+        $captioto = $update['message']['message'];
 		
 		$filenames =  str_replace(" ", "\\ ", $filename);
 
@@ -117,7 +117,7 @@ class MyEventHandler extends EventHandler
             shell_exec("ffmpeg -y -i ".$filenames. " -i logo.png -filter_complex overlay=x=10:y=H-h-10 output.mp4");
 	
 
-        	shell_exec("ffmpeg -y -i ".$filenames. " -ss 00:01:80.000 -vframes 1 thumb.png");
+        	shell_exec("ffmpeg -y -i ".$filenames. " -ss 00:00:01.000 -vframes 1 thumb.png");
 
 
         yield $this->messages->sendMedia([
@@ -130,7 +130,7 @@ class MyEventHandler extends EventHandler
                     ['_' => 'documentAttributeVideo', 'round_message' => true, 'supports_streaming' => true]    
                 ]
             ],
-            'message' => '[Fighting Vids](https://t.me/fightingvids)',
+            'message' => $captioto . '\n[Fighting Vids](https://t.me/fightingvids)',
             'parse_mode' => 'Markdown'
         ]);
 	    
