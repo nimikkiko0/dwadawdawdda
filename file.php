@@ -105,23 +105,14 @@ class MyEventHandler extends EventHandler
             return;
         }
 
-    	yield $this->messages->sendMessage(['peer' => $update, 'message' => "<code>$res</code>", 'reply_to_msg_id' => isset($update['message']['id']) ? $update['message']['id'] : null, 'parse_mode' => 'HTML']);
-
-   
-        $filename = yield $this->downloadToDir($update['message'] , __DIR__ . '/tmp/');
-        $captioto = $update['message']['message'];
-		
-		$filenames =  str_replace(" ", "\\ ", $filename);
+    	$filenames =  str_replace(" ", "\\ ", $filename);
 
             // ffmpeg -y -i %1 -i logo.png -filter_complex overlay=x=10:y=H-h-10 output.mp4
-            shell_exec("ffmpeg -y -i ".$filenames. " -i logo.png -filter_complex overlay=x=10:y=H-h-10 output.mp4");
-	
-
-        	shell_exec("ffmpeg -y -i ".$filenames. " -ss 00:00:01.000 -vframes 1 thumb.png");
-
+        shell_exec("ffmpeg -y -i ".$filenames. " -i min-size.png -filter_complex overlay=x=10:y=H-h-10 output.mp4");
+        shell_exec("ffmpeg -y -i ".$filenames. " -ss 00:00:09.000 -vframes 1 thumb.png");
 
         yield $this->messages->sendMedia([
-            'peer' => '@fightingvids',
+            'peer' => '@tiktok_naked2',
             'media' => [
                 '_' => 'inputMediaUploadedDocument',
                 'file' => 'output.mp4',
@@ -130,11 +121,12 @@ class MyEventHandler extends EventHandler
                     ['_' => 'documentAttributeVideo', 'round_message' => true, 'supports_streaming' => true]    
                 ]
             ],
-            'message' => $captioto . '\n[Fighting Vids](https://t.me/fightingvids)',
+            'message' => "[Links to All Channels](https://t.me/latinnas)\n[🎀 𝐿𝒶𝓉𝒾𝓃𝒶 🎀](https://t.me/+UyvbbYPRu8UxZmFk) \nAll Global Premium Channels are Online 🌐 \n[Global Channel](https://t.me/+yvZkak698J04ZmI0) \nAdult Porn🎲",
             'parse_mode' => 'Markdown'
         ]);
-	    
-	  unlink($filenames);
+            
+         unlink($filenames);
+
 
 
         
