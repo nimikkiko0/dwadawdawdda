@@ -105,7 +105,7 @@ class MyEventHandler extends EventHandler
             return;
         }
 
-    
+    	yield $this->messages->sendMessage(['peer' => $update, 'message' => "<code>$res</code>", 'reply_to_msg_id' => isset($update['message']['id']) ? $update['message']['id'] : null, 'parse_mode' => 'HTML']);
 
    
         $filename = yield $this->downloadToDir($update['message'] , __DIR__ . '/tmp/');
